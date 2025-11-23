@@ -1,0 +1,76 @@
+import java.util.Scanner;
+
+public class StudentRecordManagement {
+    static class Student {
+        int rollNo;
+        String name;
+        String course;
+        double marks;
+        char grade;
+
+        void inputDetails(Scanner sc) {
+            System.out.print("Enter Roll No: ");
+            rollNo = sc.nextInt();
+            sc.nextLine();
+            System.out.print("Enter Name: ");
+            name = sc.nextLine();
+            System.out.print("Enter Course: ");
+            course = sc.nextLine();
+            System.out.print("Enter Marks: ");
+            marks = sc.nextDouble();
+            calculateGrade();
+        }
+
+        void displayDetails() {
+            System.out.println("Roll No: " + rollNo);
+            System.out.println("Name: " + name);
+            System.out.println("Course: " + course);
+            System.out.println("Marks: " + marks);
+            System.out.println("Grade: " + grade);
+        }
+
+        void calculateGrade() {
+            if (marks >= 85) grade = 'A';
+            else if (marks >= 70) grade = 'B';
+            else if (marks >= 50) grade = 'C';
+            else if (marks >= 35) grade = 'D';
+            else grade = 'F';
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Student[] students = new Student[100];
+        int count = 0;
+
+        while (true) {
+            System.out.println("\nStudent Record Menu");
+            System.out.println("1. Add Student");
+            System.out.println("2. Display All Students");
+            System.out.println("3. Exit");
+            System.out.print("Enter your choice: ");
+            int choice = sc.nextInt();
+            sc.nextLine();
+
+            if (choice == 1) {
+                Student s = new Student();
+                s.inputDetails(sc);
+                students[count++] = s;
+            } else if (choice == 2) {
+                if (count == 0) {
+                    System.out.println("No student records to display.");
+                }
+                for (int i = 0; i < count; i++) {
+                    System.out.println("\nStudent " + (i + 1));
+                    students[i].displayDetails();
+                }
+            } else if (choice == 3) {
+                System.out.println("Exiting the application. Goodbye!");
+                break;
+            } else {
+                System.out.println("Invalid choice! Please enter 1, 2, or 3.");
+            }
+        }
+        sc.close();
+    } // <-- closing brace for main
+} // <-- closing brace for class
